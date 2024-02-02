@@ -49,8 +49,10 @@ public class JavaTest {
 		//-> 문자열 + 숫자 or
 		//   문자열 + 문자열 --> 이어쓰기
 		
-		//변수 : number,string,object - 1.배열2.js객체({K:V,K:V}),function,boolean,undefined,null ...		
+		//변수 : number,string,object - 1.배열2.js객체({K:V,K:V}),function,boolean,undefined,null ...	
 		
+//		System.out.println(); // 줄바꿈 : o
+//		System.out.print();   // 줄 바꿈 : x
 		
 		
 		
