@@ -8,7 +8,10 @@ public class PracticeRun { //기능 실행용 클래스
 		
 		PracticeService pr1 = new PracticeService();
 		
-		pr1.practice1();
+		//pr1.practice1();
+//    	pr1. practice2();
+//		pr1. practice3(); 
+		pr1.practice4(); 
 		
 		
 		
