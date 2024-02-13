@@ -55,8 +55,15 @@ public class JavaTest {
 //		System.out.print();   // 줄 바꿈 : x
 		
 		
+	    
+	
+		int i = 10;
 		
-		
+		do {
+			System.out.println(i + "출력");
+			i++;
+			
+		}while(i <=10);
 		
 		
 		
