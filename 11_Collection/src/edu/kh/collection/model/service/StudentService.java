@@ -116,8 +116,8 @@ public class StudentService {
 				case 2 : selectAll(); break;
 				case 3 : System.out.println( updateStudent() );  break;
 				case 4 : System.out.println( removeStudent() );  break;
-				case 5 : System.out.println( searchName1()); break;
-				case 6 :/*searchName2();*/ break;
+				case 5 : searchName1(); break;
+				case 6 :searchName2(); break;
 				case 0 : System.out.println("프로그램 종료..."); break;
 				default : System.out.println("메뉴에 작성된 번호만 입력하세요");
 				
@@ -364,37 +364,39 @@ public class StudentService {
 	 * - 일치하는 경우 Student 객체 출력
 	 * - 검색 결과가 없습니다 출력
 	 */
-	public String searchName1() {
+	public void searchName1() {
 		
 		System.out.println("=========이름으로 검색(일치)============");
 		
 	    System.out.print("검색할 학생 이름 입력 : ");
-	    String searchName = sc.nextLine(); 
+	    String searchName = sc.next(); 
 	 
+	    boolean flag = true;
 	    
-	    if(!studentList.isEmpty()) {
-	    	boolean flag = true;
+	    //향상된 for문
+	    for( Student std : studentList) {
 	    	
-	    	for( int i =0; i < studentList.size(); i++) {
-	    		
-	    		if(searchName.equals(studentList.get(i).getName())) {
-	    			System.out.println(studentList.get(i));
+	
+	    			if(searchName.equals(std.getName())) {
+	    			System.out.println(std);
+	    			
 	    			flag = false;
+	    			}
+	    			
+	    			
 	    		}
-	    		
-	    		
-	    	}
+	    }
+	    
 	    	
 	    
 	    	
 	    	
 	    	
-	    }
-		return "";
+	    
 		
 		
 		
-	}
+		
 	
 	
 	
@@ -405,13 +407,35 @@ public class StudentService {
 	 * - 포함되는 경우 Student객체 출력
 	 * - 검색 결과가 없습니다 출력
 	 */
-//	public String searchName2() {
-//		
-//		// boolean String.contains(문자열) : String에 문자열이 포함되어 있으면 true/없으면 false
-//		
-//	}
+	public void searchName2() {
+		
+		 System.out.println("=======학생 검색 (문자열 포함)===========");
+		 
+		 System.out.print("이름에 포함되는 문자열 입력 : ");
+		 String input = sc.next();
+		 
+		 boolean flag = true;
+		 
+		 for(Student std : studentList) {
+			 
+			 // boolean String.contains(문자열) : String에 문자열이 포함되어 있으면 true/없으면 false	
+			 if(std.getName().contains(input)) {
+				 System.out.println(std);
+				 flag = false;
+			 }
+			 
+		 }
+		 
+		 if(flag) {
+			 System.out.println("검색 결과가 없습니다");
+		 }
+		 
+		 
+	}
 	
 	
 	
 	
+
+
 }
