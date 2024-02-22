@@ -156,7 +156,7 @@ public class ToyFactoryClass{
 	}	
 	
 	
-	public useAge() {
+	public useAge() { //요소만 꺼내오는거??
 		
 		System.out.println("<연령별로 사용가능한 장난감>");
 		
