@@ -14,7 +14,7 @@ public class Student {
 
 	//매개변수 생성자
 	public Student(String name, int age, String region, char gender, int score) {
-		super();
+		super(); //부모클래스에서는 딱히 없어도 된다
 		this.name = name;
 		this.age = age;
 		this.region = region;

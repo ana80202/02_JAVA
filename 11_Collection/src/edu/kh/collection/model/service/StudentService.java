@@ -117,7 +117,7 @@ public class StudentService {
 				case 3 : System.out.println( updateStudent() );  break;
 				case 4 : System.out.println( removeStudent() );  break;
 				case 5 : searchName1(); break;
-				case 6 :searchName2(); break;
+				case 6 : searchName2(); break;
 				case 0 : System.out.println("프로그램 종료..."); break;
 				default : System.out.println("메뉴에 작성된 번호만 입력하세요");
 				
@@ -131,7 +131,7 @@ public class StudentService {
 				
 				menuNum = -1; // 첫 반복시 잘못 입력하는 경우
 				//menuNum 이 0을 가지고 있어 종료되는데,
-				//이를 방지하기 우해 임의값 -1eodlq
+				//이를 방지하기 우해 임의값 -1대입
 			}
 			
 		}while(menuNum != 0);
