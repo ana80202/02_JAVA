@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import edu.kh.shopping.model.dto.Shopping;
 import edu.kh.shopping.model.service.ShoppingListService;
@@ -48,8 +49,9 @@ public class ShoppingListView {
 				case 2 : ShoppingDetailView(); break;
 				case 3 : productAdd(); break;
 				case 4 : wish(); break;
-				case 5 : productDelete(); break;
-				case 0 : System.out.println("----프로그램 종료----");
+				case 5 : productEdit(); break;
+				case 6 : productDelete(); break;
+				case 0 : System.out.println("----프로그램 종료----"); break;
 				default : System.out.println("메뉴 작성된 번호만 입력해 주세요");
 				
 				}
@@ -81,7 +83,8 @@ public class ShoppingListView {
 		System.out.println("2.Shopping Detail view");
 		System.out.println("3.product add");
 		System.out.println("4.wish");
-		System.out.println("5.product delete ");
+		System.out.println("5.product Edit");
+		System.out.println("6.product delete ");
 		System.out.println("0.EXIT");
 		
 		System.out.print("select menu >>>");
@@ -97,30 +100,30 @@ public class ShoppingListView {
 		
 		Map<String,Object> map = service.ShoppingList();
 		
-		List<Shopping> ShoppingList = (List<Shopping>map.get(ShoppingList));
-		int completeCount = (int)map.get(completeCount);
+		List<Shopping> ShoppingList = (List<Shopping>)map.get("ShoppingList");
+		int wishCount = (int)map.get("wishCount");
 		
 		System.out.printf("[ wish 개수 / 전체 상품 : %d / %d ]\n"
-				, completeCount, ShoppingList.size());
+				, wishCount, ShoppingList.size());
 		
 		System.out.println("--------------------------------------------------------------------");
-		System.out.printf("%-3s %10s   %10s     %s\n", "인덱스","찜하기", "상품");
+		System.out.printf("%-3s %10s    %s\n", "인덱스","찜하기", "상품");
 		System.out.println("--------------------------------------------------------------------");
 		
 		for(int i=0, len = ShoppingList.size(); i < len; i++) {
 		
-			String title = ShoppingList.get(i).getTitle();
+			String product = ShoppingList.get(i).getProduct();
 			
-			String completeYN = ShoppingList.get(i).isComplete() ? "O" : "X";
+			String wishYN = ShoppingList.get(i).isWish() ? "♥" : "♡";
 			
-			System.out.printf("[%3d]  %20s    (%s)       %s\n", i, completeYN, title);		
+			System.out.printf("[%3d]  %10s      %s\n", i, wishYN, product);		
 	}
 }
 	
 	
 	
 	
-	
+	//상세 설명 보기
 	public void ShoppingDetailView() throws IOException{
 		System.out.println("\n ---------<2.Shopping Detail View>--------- \n");
 		
@@ -137,30 +140,32 @@ public class ShoppingListView {
 		
 	}
 	
+	//상품 추가
 	public void productAdd() throws IOException, Exception {
 		System.out.println("\n ---------<3.productAdd>--------- \n");
 		
-		System.out.println("추가할 상품 입력 : ");
+		System.out.print("추가할 상품 입력 : ");
 		String title = br.readLine();
 		
-		System.out.println("상품 설명 추가( 입력 종료시 !e 작성)");
+		System.out.println("브랜드 작성( 입력 종료시 !e 작성)");
 		System.out.println("---------------------------------------");
 		
 		StringBuilder sb = new StringBuilder();
 		
-		While(true){
+		while(true) {
 			
 			String content = br.readLine();
 			
 			if(content.equals("!e")) break;
 			
 			sb.append(content);
-			sb.append("\n");	
+			sb.append("\n");
+				
 		}
 		
 		System.out.println("-------------------------------------------");
 		
-		int index = service.ShoppingAdd(title, sb.toString());
+		int index = service.productAdd(title, sb.toString());
 		
 		if(index == -1) {
 			System.out.println("추가 실패");
@@ -178,7 +183,7 @@ public class ShoppingListView {
 		System.out.print("찜할 상품 번호 입력 : ");
 		int index = Integer.parseInt(br.readLine());
 		
-		boolean result = service.ShoppingComplete(index);
+		boolean result = service.wish(index);
 		
 		if(result) {
 			System.out.println("찜 완료!");
@@ -191,7 +196,7 @@ public class ShoppingListView {
 	
 	public void productDelete() throws Exception {
 		 
-		System.out.println("\n ---------<5.product Delete>--------- \n");
+		System.out.println("\n ---------<6.product Delete>--------- \n");
 		
 		System.out.print("삭제할 상품 입력 : ");
 		int index = Integer.parseInt(br.readLine());
@@ -204,4 +209,59 @@ public class ShoppingListView {
 		
 	}
 	
-}
+	
+
+	public void productEdit() throws Exception {
+		System.out.println("\n ---------<5.productEdit>--------- \n");
+		
+		System.out.print("수정할 상품 번호 입력 : ");
+		int index = Integer.parseInt(br.readLine());
+
+		String shoppingDetail = service.ShoppingDetailView(index);
+		
+		if( shoppingDetail == null) {
+			System.out.println("### 상품이 존재하지 않음###");
+			return;
+		}
+		
+		
+		System.out.println("@@@@@@@@[수정 전]@@@@@@@@");
+		System.out.println( shoppingDetail);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@");
+		
+		
+		System.out.print("상품 입력 : ");
+		String title = br.readLine();
+		
+		System.out.println("브랜드 작성( 입력 종료 시 !e 작성 후 엔터)");
+		System.out.println("------------------------------------------------");
+		
+		StringBuilder sb =new StringBuilder();
+		
+		while(true) {
+		
+			String content = br.readLine();
+			
+			if(content.equals("!e")) break; 
+			
+			sb.append(content);
+			sb.append("\n");
+				
+		}
+		
+		System.out.println("-------------------------------------------------");
+		
+	
+		boolean result = service. productEdit(index,title,sb.toString());
+		
+		if(result) System.out.println("[수정 되었습니다]");
+		else 	   System.out.println("###수정 실패###");
+		
+		
+	}
+	
+		
+	}
+	
+	
+

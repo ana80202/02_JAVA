@@ -4,26 +4,20 @@ import java.util.Map;
 
 public interface ShoppingListService {
 
-	Map<String, Object> ShoppingListFullView();
+	Map<String, Object> ShoppingList();
 
 	String ShoppingDetailView(int index);
-
-	Map<String, Object> ShoppingList();
 
 	boolean wish(int index) throws Exception;
 
 	String productDelete(int index) throws Exception;
 
-	int ShoppingAdd(String title, String string);
+	boolean productEdit(int index, String title, String string) throws Exception;
 
-	boolean ShoppingComplete(int index);
+	int productAdd(String title, String string) throws Exception;
 
-	String productDelete(int index);
-
-	String ShoppingDetailView(int index);
-
-	Map<String, Object> ShoppingList();
 	
+
 	
 
 }

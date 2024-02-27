@@ -19,16 +19,16 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 	} 
 
 	@Override
-	public Map<String, Object> ShoppingListFullView(){
+	public Map<String, Object> ShoppingList(){
 		
-		List<Shopping> ShoppingList = dao.ShoppingListFullView();
+		List<Shopping> ShoppingList = dao.ShoppingList();
 		
-		int completeCount = 0;
+		int wishCount = 0;
 		
 		for(Shopping list : ShoppingList) {
 			
-			if(Shopping.iscomplete()) {
-				completeCount++;
+			if(list.isWish()) {
+				wishCount++;
 			}
 			
 		}
@@ -36,7 +36,7 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("ShoppingList", ShoppingList);
-		map.put("completeCount", completeCount);
+		map.put("wishCount", wishCount);
 		
 		return map;
 			
@@ -45,18 +45,20 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 	@Override
 	public String ShoppingDetailView(int index) {
 		
+		Shopping shopping = dao.ShoppingDetailView(index);
+		
 		if(shopping == null) return null;
 		
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("---------------------------------------------------------\n");
-		sb.append(String.format("상품명 : %s\n", shopping.getTitle()));
-		sb.append(String.format("찜 : %s\n", shopping.isComplete() ? "0" : "X"));
-		sb.append("\n [세부 내용]\n");
+		sb.append(String.format("상품명 : %s\n", shopping.getProduct()));
+		sb.append(String.format("찜 : %s\n", shopping.isWish() ? "♥" : "♡"));
+		sb.append("\n[브랜드]\n");
 		sb.append("---------------------------------------------------------\n");
 		sb.append(String.format("%s\n", shopping.getDetail()));
 		
-		//4. 가공한 문자열을 반환
+		
 		return sb.toString();
 		
 		
@@ -71,25 +73,24 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 	public String productDelete(int index) throws Exception{
 		Shopping shopping = dao.productDelete(index);
 		if(shopping ==null) return null;
-		return shopping.getTitle();
+		return shopping.getProduct();
+	}
+
+
+	@Override
+	public boolean productEdit(int index, String title, String content) throws Exception {
+		
+		return dao.productEdit(index,title,content);
+		
+		
 	}
 
 	@Override
-	public Map<String, Object> ShoppingList() {
-		// TODO Auto-generated method stub
-		return null;
+	public int productAdd(String title, String content) throws Exception {
+		Shopping shopping = new Shopping(title,content, false);
+		int index = dao.productAdd(shopping);
+		return index;
 	}
 
-	@Override
-	public int ShoppingAdd(String title, String string) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	@Override
-	public boolean ShoppingComplete(int index) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
 }

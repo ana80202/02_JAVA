@@ -7,17 +7,20 @@ import edu.kh.shopping.model.dto.Shopping;
 public interface ShoppingListDAO{
 	
 	void saveFile() throws Exception;
-
-	List<Shopping> ShoppingListFullView();
+	
+	List<Shopping> ShoppingList();
+	
+	int productAdd(Shopping shopping) throws Exception;
 
 	Shopping ShoppingDetailView(int index);
 	
-	int ShoppingAdd (Shopping shopping) throws Exception;
-	
 	boolean wish(int index) throws Exception;
 	
-	Shopping ShoppingDelete(int index) throws Exception;
+	boolean productEdit(int index, String title, String content) throws Exception;
+	
+	Shopping productDelete(int index) throws Exception;
 
-	Shopping productDelete(int index);
+
+
 
 }

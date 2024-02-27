@@ -8,10 +8,10 @@ public class Shopping implements Serializable {
 	private String detail; //상품 설명
 	private boolean wish; //찜하기
 	
-	//기본 생성자
+
 	public Shopping(){}
 
-	//매개변수생성자
+	
 	public Shopping(String product, String detail, boolean wish) {
 		super();
 		this.product = product;
@@ -19,7 +19,6 @@ public class Shopping implements Serializable {
 		this.wish = wish;
 	}
 
-	//getter,setter
 	public String getProduct() {
 		return product;
 	}
@@ -49,32 +48,6 @@ public class Shopping implements Serializable {
 		return "Shopping [product=" + product + ", detail=" + detail + ", wish=" + wish + "]";
 	}
 
-	public void setComplete(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
-	public boolean isComplete() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public String getTitle() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public static boolean iscomplete() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	
-	
-	
-	
-
 }
